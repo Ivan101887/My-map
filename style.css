@@ -1,4 +1,9 @@
 #map {
-  height: 100vh;
+  height: 800px ;
   width: 100vw;
+}
+#pageTitle{
+  width: 100%;
+  text-align: center;
+  color: orange;
 }
