@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Show station on list</title>
+        <!-- <link rel="stylesheet" href="./style.css"> -->
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            ul {
+                list-style-type: none;
+            }
+
+            h2 {
+                color: orange;
+                text-align: center;
+            }
+
+            .state {
+                width: 100px;
+                position: absolute;
+                top: 15px;
+                right: 3%;
+            }
+
+            .l-container {
+                width: 80vw;
+                margin: auto;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .l-box {
+                width: 80%;
+                height: 10%;
+                margin-bottom: 10px;
+                border-radius: 20px;
+                display: flex;
+                flex-direction: column;
+                justify-self:start;
+                align-items: center;
+                box-sizing: border-box;
+                box-shadow: 1px 0 5px 2px rgba(155, 154, 154, 0.5), 1px 0 5px 2px rgba(155, 154, 154, 0.5);
+                background-color: #fff;
+                padding: 20px 0px;
+            }
+
+            .l-t_detail {
+                width: 90%;
+                height: 50%;
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+            }
+
+            .l-head {
+                width: 90%;
+                height: 50%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                color: rgb(223, 104, 7);
+                font-weight: bolder;
+                font-size: 20px;
+            }
+
+            .l-dir {
+                background-color: rgb(246, 179, 4);
+                color: white;
+                width: 70px;
+                height: 50px;
+                border-radius: 10%;
+                font-weight: bold;
+                font-size: 17px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h2 id="pageTitle">附近投注站</h2>
+        <div class="header">
+            <img src="./icons/圖片2.png" id="opt-m" class="state">
+            <img src="./icons/圖片1.png" id="opt-l" class="state">
+        </div>
+        <ul>
+            <li>
+                <div class="l-container">
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="l-box">
+                        <div class="l-head">
+                            <div class="l-t-name">
+                                超級盃運動彩券行
+                            </div>
+                            <div>2公里</div>
+                        </div>
+                        <div class="l-t_detail">
+                            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+                            <div>
+                                <button class="l-dir" type="button" value="導航">
+                                    導航
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+
+    </body>
+
+</html>
