@@ -1,5 +1,10 @@
 let shopList = []
 function initMap() {
+    setMap();
+    document.querySelector('.d-mode').onclick = () => { switchShow() }
+}
+
+const setMap = () => {
     //取得定位
     navigator.geolocation.watchPosition((position) => {
         //使用者緯度
@@ -33,6 +38,26 @@ function initMap() {
     });
 }
 
+const switchShow = () => {
+    let x = document.querySelector('.content')
+    let y = document.querySelector('.l-container')
+    let w = document.querySelector('#opt-m')
+    let z = document.querySelector('#opt-l')
+
+    if (x.style.display === 'block') {
+        x.style.display = 'none'
+        y.style.display = 'block'
+        w.style.display = 'none'
+        z.style.display = 'block'
+
+    } else {
+        x.style.display = 'block'
+        y.style.display = 'none'
+        w.style.display = 'block'
+        z.style.display = 'none'
+    }
+
+}
 //send request to 台彩 api
 const postTarget = (lat, lng, dis) => {
     const url = `https://smuat.megatime.com.tw/taiwanlottery/api/Home/Station`
