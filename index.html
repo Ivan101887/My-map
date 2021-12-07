@@ -2,19 +2,66 @@
 <html>
   <head>
     <title>Add Map</title>
-
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsLqHl6vxbCi8UQq6Z6VD9xZjWf1RRmHs&callback=initMap&libraries=&v=weekly"
+    async
+    ></script>
+    <!-- css -->
     <link rel="stylesheet"  href="./style.css" />
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <!-- javascript+jquery -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="./index.js" async defer ></script>
   </head>
   <body>
-    <div id="pageTitle">
-      <h2 >附近投注站</h2>
+    <h2 id="pageTitle">附近投注站</h2>      
+    <div class="header">
+      <img src="./icons/圖片1.png" id="opt-l" class="state">      
+      <img src="./icons/圖片2.png" id="opt-m" class="state">
     </div>
-    <div id="map"></div>
-
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsLqHl6vxbCi8UQq6Z6VD9xZjWf1RRmHs&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
+    <div class="content">
+      <div id="map"></div>
+    </div>
+    <div class="container">
+      <div class="box">
+          <div class="head">
+            <div class="t-name">
+                  超級盃運動彩券行
+            </div>
+              <div>2公里</div>
+          </div>
+          <div class="t_detail">
+            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+              <div>
+                <button class="dir" type="button" value="導航">
+                      導航
+                </button>
+              </div>
+          </div>
+      </div>
+      <div class="box">
+          <div class="head">
+            <div class="t-name">
+                  超級盃運動彩券行
+            </div>
+            <div>2公里</div>
+          </div>
+          <div class="t_detail">
+            <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+              <div>
+                <button class="dir" type="button" value="導航">
+                      導航
+                  </button>
+              </div>
+          </div>
+        </div>
+    </div>  
   </body>
 </html>
+        
+        
+        
+        
+        
