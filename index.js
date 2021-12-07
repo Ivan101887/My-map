@@ -1,18 +1,21 @@
 let shopList = []
 function initMap() {
-    var map, marker, lat, lng;
+    //取得定位
     navigator.geolocation.watchPosition((position) => {
-        // console.log(position.coords);
+        //使用者緯度
         lat = position.coords.latitude;
+        //使用者經度
         lng = position.coords.longitude;
+        //呼叫postTarget取資料
+        postTarget(lat, lng, 1);
+        //初始化google map
         map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
             center: { lat: lat, lng: lng },
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
         });
-        postTarget(lat, lng, 1);
-
+        //依站點資訊新增map上的標記
         for (const shop of shopList) {
             console.log('New Marker')
             let marker = new google.maps.Marker({
@@ -21,26 +24,16 @@ function initMap() {
                 icon: './icons/圖片3_modified.png',
                 map: map,
             })
+            //圖標的監聽事件
             marker.addListener('click', () => {
                 map.setZoom(18);
                 map.setCenter(marker.getPosition());
-
             });
         }
-        marker = new google.maps.Marker({
-            position: { lat: lat, lng: lng },
-            map: map
-        });
-        google.maps.event.addListener(marker, 'click', function () {
-            map.setZoom(18);
-            map.setCenter(marker.getPosition());
-        });
-        console.log(shopList)
     });
-
 }
 
-
+//send request to 台彩 api
 const postTarget = (lat, lng, dis) => {
     const url = `https://smuat.megatime.com.tw/taiwanlottery/api/Home/Station`
     let request = {
@@ -54,10 +47,8 @@ const postTarget = (lat, lng, dis) => {
             "lat": lat,
             "lon": lng,
             "distance": dis
-
         })
     }
-
     fetch(url, request)
         .then(response => response.json())
         .then(json => {
