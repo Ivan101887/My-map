@@ -1,42 +1,36 @@
-let shopList = []
-let myLat,myLng,marker,map
-let a = -1
-function initMap() {    
+
+function initMap() {
+    var map, marker, lat, lng;
     navigator.geolocation.watchPosition((position) => {
-        let lat = position.coords.latitude;
-        myLat = lat;
-        let lng = position.coords.longitude;
-        myLng = lng;
-        map = new goole.maps.Map(document.getElementById('map'), {
-            center: { lat: myLat, lng: myLng },
+        // console.log(position.coords);
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+        map = new google.maps.Map(document.getElementById('map'), {
             zoom: 14,
-        mapTypeId:'terrain',
-        disableDefaultUI: true,
-    });
-    postTarget(myLat,myLng,2)
-    let index = 0;
-    for (const shop of shopList) {
-        console.log('New Marker')
-        // console.log(marker)
-        let marker = new google.maps.Marker({
-            title: shop.name + '\n' + shop.address,
-            index:index,
-            position: new google.maps.LatLng(shop.lat,shop.lon),
-            icon: './icons/圖片3_modified.png',
-            map: map,
-        })
-        marker.addListener('click',() =>  {
-            map.setZoom(18);
-            map.setCenter(marker.getPosition());
+            center: { lat: lat, lng: lng },
+            mapTypeId:google.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: true,
             
         });
-    index ++;
-    }
-    
-})
-    // setCarousel()
-};
-const postTarget = (lat , lng , dis) => { 
+        marker = new google.maps.Marker({
+            position: { lat: lat, lng: lng },
+            map: map
+        });
+        google.maps.event.addListener(marker,'click',function() {
+        var pos = map.getZoom();
+        map.setZoom(18);
+        map.setCenter(marker.getPosition());
+        });
+        // console.log(lat)
+        // console.log(lng)
+        const get = getStation(lat,lng,1);
+        console.log(get)
+    });
+        
+}
+
+let getStation = async function () {
+    const postTarget = (lat,lng,dis) =>{
     const url = `https://smuat.megatime.com.tw/taiwanlottery/api/Home/Station`
     let request = {
         method: "POST",
@@ -52,21 +46,24 @@ const postTarget = (lat , lng , dis) => {
 
         })
     }
-    fetch(url,request)        
+    
+    return fetch(url,request)        
         .then(response => response.json())
         .then(json => {
-            // console.log(json. content.list)
-            let spots = json.content.list
-            for (const spot of spots) {
-                shopList.push(spot);
+            var spots = []
+            for (let i =0; i < json.content.list.length; i++ ){
+                spots.push(json.content.list[i])
             }
-
+            console.log(spots)
+            return spots;
         })  
-} 
-// function setCarousel(){
-//     $('.container').slick()
-// }      
-    // map = Vue.createApp({
+    }
+    postTarget(25.074687, 121.575157,1) 
+    
+    
+    
+}
+// map = Vue.createApp({
 //     data(){
 //         return{
 //             map:{}, 
