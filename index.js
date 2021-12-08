@@ -1,11 +1,15 @@
 let shopList = []
+
 //onload function
 function initMap() {
     setMap();
     document.querySelector('.d-mode').onclick = () => { switchShow() }
+    // console.log(myLat, myLng)
+
 }
 
 const setMap = () => {
+    let lat, lng
     //取得定位
     navigator.geolocation.watchPosition((position) => {
         //使用者緯度
@@ -35,10 +39,11 @@ const setMap = () => {
             })
             marker.setIcon('./icons/圖片3_modified.png')
             markerList.push(marker);
-            //圖標的監聽事件
-            marker.addListener('click', (e) => {
+            //監聽圖標
+            marker.addListener('click', () => {
                 map.setZoom(18);
                 map.setCenter(marker.getPosition());
+                //初始畫圖標
                 for (let i of markerList) {
                     // console.log('reset icon')
                     if (i.icon === './icons/圖片4_modified.png') { i.setIcon('./icons/圖片3_modified.png') }
@@ -51,6 +56,8 @@ const setMap = () => {
                 }
             });
         }
+        console.log(lat, lng)
+        newInfoCard(lat, lng)
     });
 }
 //切換列表\地圖顯示
@@ -101,6 +108,31 @@ const postTarget = (lat, lng, dis) => {
             }
 
         })
+}
+let newInfoCard = (lat, lng) => {
+    const origin = document.querySelector('.l-container')
+    for (let shop of shopList) {
+        const url = "http://www.google.com/maps/dir/" + lat + "," + lng + "/" + shop.address
+        const item = `<div class="l-box">
+            <div class="l-head">
+              <div class="l-t-name">
+                ${shop.name}
+              </div>
+              <div>${shop.distance}公里</div>
+            </div>
+            <div class="l-t_detail">
+              <div style="padding: 5px 0px;">${shop.address}</div>
+              <div>
+                <a href= ${url} target='_blank'>
+                  <button class="l-dir" type="button" value="導航">
+                    導航
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>`
+        origin.innerHTML += item;
+    }
 }
 
 

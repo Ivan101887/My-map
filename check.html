@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <div class="container">
+
+        </div>
+        <script>
+            let x = document.querySelector('.container')
+            let item = `<div class="l-box">
+            <div class="l-head">
+              <div class="l-t-name">
+                超級盃運動彩券行
+              </div>
+              <div>2公里</div>
+            </div>
+            <div class="l-t_detail">
+              <div style="padding: 5px 0px;">台北市內湖區江南街125號</div>
+              <div>
+                <a href="http://www.google.com/maps/dir/25.077789,121.5712388/台北市內湖區江南街125號" target='_blank'>
+                  <button class="l-dir" type="button" value="導航">
+                    導航
+                  </button>
+                </a>
+              </div>
+            </div>
+          </div>`
+            for (let o = 0; o <= 9; o++) {
+                origin.innerHTML += item;
+            }
+
+        </script>
+    </body>
+
+</html>
