@@ -9,7 +9,6 @@ async function initMap() {
     setMarkerOnMap();//標記站點位置
     newInfoCard();//動態產生站點列表
     document.querySelector('.d-mode').onclick = () => { switchShow() }//切換顯示模式
-    // console.log(myLat, myLng)
 
 }
 
@@ -23,11 +22,11 @@ function locateUsers() {
                 //使用者經度
                 lng = position.coords.longitude;
                 myLng = lng;
-                console.log('定位成功，你在' + myLat + "," + myLng)
+                console.log('定位成功  你在' + myLat + "," + myLng)
                 resolve();
             },
             (error) => {
-                console.log('抱歉無法取得您的位置')
+                alert('抱歉無法取得您所在位置')
                 reject();
             }
         )
