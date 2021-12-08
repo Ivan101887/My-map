@@ -12,7 +12,6 @@ async function initMap() {
     newInfoCard();//動態產生站點列表
     newSlickCard();//生成輪播元件
     setCarousel();//實作輪播效果
-    // bindMarkerToSlicker();
     document.querySelector('.d-mode').onclick = () => { switchShow() }//切換顯示模式
 
 }
@@ -80,7 +79,7 @@ function setMarkerOnMap() {
         index++;
         marker.setIcon('./icons/圖片3_modified.png')
         markerList.push(marker);
-        bindMarkerToSlicker();
+        bindMarkerToSlicker();//marker的點擊事件監聽
     }
 }
 const bindMarkerToSlicker = () => {
