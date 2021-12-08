@@ -1,12 +1,14 @@
 let shopList = [];
-let myLat, myLng;
+let myLat, myLng, map;
 
 //onload function
-function initMap() {
-    // console.log('aaaa')
-    // setMap();
-    locateUsers();
-    document.querySelector('.d-mode').onclick = () => { switchShow() }
+async function initMap() {
+    await locateUsers().then();//根據裝置定位使用者位置
+    await postTarget(myLat, myLng, 1);//搜尋所在位置的台灣彩券行
+    initialMyMap(myLat, myLng);//建立新地圖
+    setMarkerOnMap();//標記站點位置
+    newInfoCard();//動態產生站點列表
+    document.querySelector('.d-mode').onclick = () => { switchShow() }//切換顯示模式
     // console.log(myLat, myLng)
 
 }
@@ -21,7 +23,7 @@ function locateUsers() {
                 //使用者經度
                 lng = position.coords.longitude;
                 myLng = lng;
-                console.log('定位成功/n你在' + myLat + "," + myLng)
+                console.log('定位成功，你在' + myLat + "," + myLng)
                 resolve();
             },
             (error) => {
@@ -32,61 +34,44 @@ function locateUsers() {
     })
 }
 
-
-const setMap = () => {
-    let lat, lng
-    console.log('aaaa')
-    //取得定位
-    navigator.geolocation.getCurrentPosition((position) => {
-        //使用者緯度
-        lat = position.coords.latitude;
-        //使用者經度
-        lng = position.coords.longitude;
-        //呼叫postTarget取資料
-        console.log(lat, lng)
-        postTarget(lat, lng, 1);
-        //初始化google map
-        map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 14,
-            center: { lat: lat, lng: lng },
-            mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true,
-        });
-
-
-        //依站點資訊新增map上的標記
-        let markerList = []
-
-
-        for (const shop of shopList) {
-            let marker = new google.maps.Marker({
-                title: shop.name + '\n' + shop.address,
-                position: new google.maps.LatLng(shop.lat, shop.lon),
-                // icon: './icons/圖片3_modified.png',
-                map: map,
-            })
-            marker.setIcon('./icons/圖片3_modified.png')
-            markerList.push(marker);
-            //監聽圖標
-            marker.addListener('click', () => {
-                map.setZoom(18);
-                map.setCenter(marker.getPosition());
-                //初始畫圖標
-                for (let i of markerList) {
-                    // console.log('reset icon')
-                    if (i.icon === './icons/圖片4_modified.png') { i.setIcon('./icons/圖片3_modified.png') }
-                    else continue;
-                }
-                //click to change icon
-                if (marker.icon === './icons/圖片3_modified.png') {
-                    console.log('change icon')
-                    marker.setIcon('./icons/圖片4_modified.png')
-                }
-            });
-        }
-
-        newInfoCard(lat, lng)
+function initialMyMap(latitude, longitude) {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: { lat: latitude, lng: longitude },
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
     });
+}
+
+function setMarkerOnMap() {
+    let markerList = []
+    console.log('標記站點位置')
+    for (const shop of shopList) {
+        console.log('新標記')
+        let marker = new google.maps.Marker({
+            title: shop.name + '\n' + shop.address,
+            position: new google.maps.LatLng(shop.lat, shop.lon),
+            map: map,
+        })
+        marker.setIcon('./icons/圖片3_modified.png')
+        markerList.push(marker);
+        //監聽圖標
+        marker.addListener('click', () => {
+            map.setZoom(18);
+            map.setCenter(marker.getPosition());
+            //初始畫圖標
+            for (let i of markerList) {
+                // console.log('reset icon')
+                if (i.icon === './icons/圖片4_modified.png') { i.setIcon('./icons/圖片3_modified.png') }
+                else continue;
+            }
+            //click to change icon
+            if (marker.icon === './icons/圖片3_modified.png') {
+                console.log('change icon')
+                marker.setIcon('./icons/圖片4_modified.png')
+            }
+        });
+    }
 }
 //切換列表\地圖顯示
 const switchShow = () => {
@@ -110,7 +95,7 @@ const switchShow = () => {
 
 }
 //send request to 台彩 api
-const postTarget = (lat, lng, dis) => {
+async function postTarget(lat, lng, dis) {
     const url = `https://smuat.megatime.com.tw/taiwanlottery/api/Home/Station`
     let request = {
         method: "POST",
@@ -125,7 +110,7 @@ const postTarget = (lat, lng, dis) => {
             "distance": dis
         })
     }
-    fetch(url, request)
+    await fetch(url, request)
         .then(response => response.json())
         .then(json => {
             console.log("run postTarget")
