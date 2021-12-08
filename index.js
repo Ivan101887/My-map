@@ -1,5 +1,7 @@
+let markerList = []
 let shopList = [];
 let myLat, myLng, map;
+let slicker;
 
 //onload function
 async function initMap() {
@@ -8,6 +10,9 @@ async function initMap() {
     initialMyMap(myLat, myLng);//建立新地圖
     setMarkerOnMap();//標記站點位置
     newInfoCard();//動態產生站點列表
+    newSlickCard();//生成輪播元件
+    setCarousel();//實作輪播效果
+    // bindMarkerToSlicker();
     document.querySelector('.d-mode').onclick = () => { switchShow() }//切換顯示模式
 
 }
@@ -41,20 +46,46 @@ function initialMyMap(latitude, longitude) {
         disableDefaultUI: true,
     });
 }
+function setCarousel(params) {
+    slicker = $('.slick').slick({
+        centerMode: true,
+        slidesToShow: 3,
+        draggable: true,
+        infinite: false,
+    })
+    slicker.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+        console.log(event);
+        console.log(slick);
+        console.log(currentSlide);
+        console.log(nextSlide);
+        markerList[nextSlide].setIcon('./icons/圖片4_modified.png');
+        markerList[currentSlide].setIcon('./icons/圖片3_modified.png');
+        map.setCenter(markerList[nextSlide].getPosition());
+        map.setZoom(18);
+    });
+
+}
 
 function setMarkerOnMap() {
-    let markerList = []
+    let index = 0;
     console.log('標記站點位置')
     for (const shop of shopList) {
         console.log('新標記')
         let marker = new google.maps.Marker({
             title: shop.name + '\n' + shop.address,
+            index: index,
             position: new google.maps.LatLng(shop.lat, shop.lon),
             map: map,
         })
+        index++;
         marker.setIcon('./icons/圖片3_modified.png')
         markerList.push(marker);
-        //監聽圖標
+        bindMarkerToSlicker();
+    }
+}
+const bindMarkerToSlicker = () => {
+    console.log('start');
+    for (let marker of markerList) {
         marker.addListener('click', () => {
             map.setZoom(18);
             map.setCenter(marker.getPosition());
@@ -69,6 +100,7 @@ function setMarkerOnMap() {
                 console.log('change icon')
                 marker.setIcon('./icons/圖片4_modified.png')
             }
+            $('.slick').slick('slickGoTo', marker.index);
         });
     }
 }
@@ -147,6 +179,30 @@ let newInfoCard = (lat, lng) => {
     }
 }
 
+let newSlickCard = () => {
+    const origin = document.querySelector('.slick')
+    for (let shop of shopList) {
+        const url = "http://www.google.com/maps/dir/" + lat + "," + lng + "/" + shop.address
+        const item = `<div class="box">
+            <div class="head">
+              <div class="t-name">
+                ${shop.name}
+              </div>
+              <div>${shop.distance}公里</div>
+            </div>
+            <div class="t_detail">
+              <div style="padding: 5px 0px;">${shop.address}</div>
+              <div>
+                <a href= ${url} target='_blank'>
+                <button class="dir" type="button" value="導航">
+                  導航
+                </button></a>
+              </div>
+            </div>
+          </div>`
+        origin.innerHTML += item;
+    }
+}
 
 
 
