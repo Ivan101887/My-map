@@ -21,6 +21,8 @@ const setMap = () => {
             disableDefaultUI: true,
         });
         //依站點資訊新增map上的標記
+        let markerList = []
+
         for (const shop of shopList) {
             console.log('New Marker')
             let marker = new google.maps.Marker({
@@ -29,10 +31,20 @@ const setMap = () => {
                 icon: './icons/圖片3_modified.png',
                 map: map,
             })
+            markerList.push(marker);
             //圖標的監聽事件
-            marker.addListener('click', () => {
+            marker.addListener('click', (e) => {
                 map.setZoom(18);
                 map.setCenter(marker.getPosition());
+                for (let i of markerList) {
+                    // console.log('reset icon')
+                    if (i.icon === './icons/圖片4_modified.png') { i.setIcon('./icons/圖片3_modified.png') }
+                    else continue;
+                }
+                if (marker.icon === './icons/圖片3_modified.png') {
+                    console.log('change icon')
+                    marker.setIcon('./icons/圖片4_modified.png')
+                }
             });
         }
     });
