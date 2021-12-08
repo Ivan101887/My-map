@@ -2,6 +2,7 @@ let shopList = []
 
 //onload function
 function initMap() {
+    // console.log('aaaa')
     setMap();
     document.querySelector('.d-mode').onclick = () => { switchShow() }
     // console.log(myLat, myLng)
@@ -10,8 +11,9 @@ function initMap() {
 
 const setMap = () => {
     let lat, lng
+    console.log('aaaa')
     //取得定位
-    navigator.geolocation.watchPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
         //使用者緯度
         lat = position.coords.latitude;
         //使用者經度
@@ -29,8 +31,8 @@ const setMap = () => {
         //依站點資訊新增map上的標記
         let markerList = []
 
+
         for (const shop of shopList) {
-            console.log('New Marker')
             let marker = new google.maps.Marker({
                 title: shop.name + '\n' + shop.address,
                 position: new google.maps.LatLng(shop.lat, shop.lon),
@@ -56,7 +58,8 @@ const setMap = () => {
                 }
             });
         }
-        console.log(lat, lng)
+
+        console.log(shopList)
         newInfoCard(lat, lng)
     });
 }
