@@ -133,3 +133,37 @@ a{
   font-weight: bold;
   font-size: 17px;
 }
+
+
+    ul.dist_select {
+        width:50px;
+        list-style: none;
+        position: absolute;
+        top: 8%;
+        right:3%;
+    }
+
+    ul.dist_select li {
+        margin: 0;
+        white-space: nowrap;
+        padding-bottom: 5px;
+    }
+    .option{
+      border: none;
+      background-color: rgb(255, 255, 255);
+      color:orange;
+      font-size: 16px;
+      font-weight: bold ;
+
+    }
+
+    ul.dist_select > li:last-child {
+        border-right: none;
+    }
+
+    .option:hover{
+      background-color: rgba(228, 124, 6, 0.85);
+      color: #fff;
+      font-size: 18px;
+      
+    }

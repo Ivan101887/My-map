@@ -2,20 +2,37 @@ let markerList = []
 let shopList = [];
 let myLat, myLng, map;
 let slicker;
+let chosen = 1;
+
 
 //onload function
 async function initMap() {
     await locateUsers().then();//根據裝置定位使用者位置
-    await postTarget(myLat, myLng, 1);//搜尋所在位置的台灣彩券行
+    await postTarget(myLat, myLng, chosen);//搜尋所在位置的台灣彩券行
     initialMyMap(myLat, myLng);//建立新地圖
     setMarkerOnMap();//標記站點位置
     newInfoCard();//動態產生站點列表
     newSlickCard();//生成輪播元件
     setCarousel();//實作輪播效果
     document.querySelector('.d-mode').onclick = () => { switchShow() }//切換顯示模式
-
+    // listenSelect();
 }
 
+
+async function listenSelect() {
+    document.querySelector('.dist_select').onclick = (e) => {
+        console.log("Success on listening")
+        chosen = e.target.value;
+        console.log(chosen)
+        initMap();
+        // postTarget(myLat, myLng, chosen);//搜尋所在位置的台灣彩券行
+        // setMarkerOnMap();//標記站點位置
+        // newInfoCard();//動態產生站點列表
+        // newSlickCard();//生成輪播元件
+        $('.slick').slick('unslick');
+        // setCarousel();//實作輪播效果
+    }
+}
 function locateUsers() {
     return new Promise((resolve, reject) => {
         navigator.geolocation.getCurrentPosition(
@@ -47,6 +64,7 @@ function initialMyMap(latitude, longitude) {
 }
 function setCarousel(params) {
     slicker = $('.slick').slick({
+        arrows: false,
         centerMode: true,
         slidesToShow: 3,
         draggable: true,
@@ -126,6 +144,7 @@ const switchShow = () => {
 }
 //send request to 台彩 api
 async function postTarget(lat, lng, dis) {
+    shopList = []
     const url = `https://smuat.megatime.com.tw/taiwanlottery/api/Home/Station`
     let request = {
         method: "POST",
@@ -137,7 +156,7 @@ async function postTarget(lat, lng, dis) {
         body: JSON.stringify({
             "lat": lat,
             "lon": lng,
-            "distance": dis
+            "distance": dis,
         })
     }
     await fetch(url, request)
@@ -154,6 +173,7 @@ async function postTarget(lat, lng, dis) {
 }
 let newInfoCard = (lat, lng) => {
     const origin = document.querySelector('.l-container')
+    origin.innerHTML = ""
     for (let shop of shopList) {
         const url = "http://www.google.com/maps/dir/" + lat + "," + lng + "/" + shop.address
         const item = `<div class="l-box">
@@ -180,6 +200,7 @@ let newInfoCard = (lat, lng) => {
 
 let newSlickCard = () => {
     const origin = document.querySelector('.slick')
+    origin.innerHTML = ""
     for (let shop of shopList) {
         const url = "http://www.google.com/maps/dir/" + lat + "," + lng + "/" + shop.address
         const item = `<div class="box">
