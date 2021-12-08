@@ -1,4 +1,5 @@
 let shopList = []
+//onload function
 function initMap() {
     setMap();
     document.querySelector('.d-mode').onclick = () => { switchShow() }
@@ -12,6 +13,7 @@ const setMap = () => {
         //使用者經度
         lng = position.coords.longitude;
         //呼叫postTarget取資料
+        console.log(lat, lng)
         postTarget(lat, lng, 1);
         //初始化google map
         map = new google.maps.Map(document.getElementById('map'), {
@@ -28,9 +30,10 @@ const setMap = () => {
             let marker = new google.maps.Marker({
                 title: shop.name + '\n' + shop.address,
                 position: new google.maps.LatLng(shop.lat, shop.lon),
-                icon: './icons/圖片3_modified.png',
+                // icon: './icons/圖片3_modified.png',
                 map: map,
             })
+            marker.setIcon('./icons/圖片3_modified.png')
             markerList.push(marker);
             //圖標的監聽事件
             marker.addListener('click', (e) => {
@@ -41,6 +44,7 @@ const setMap = () => {
                     if (i.icon === './icons/圖片4_modified.png') { i.setIcon('./icons/圖片3_modified.png') }
                     else continue;
                 }
+                //click to change icon
                 if (marker.icon === './icons/圖片3_modified.png') {
                     console.log('change icon')
                     marker.setIcon('./icons/圖片4_modified.png')
@@ -49,19 +53,19 @@ const setMap = () => {
         }
     });
 }
-
+//切換列表\地圖顯示
 const switchShow = () => {
     let x = document.querySelector('.content')
     let y = document.querySelector('.l-container')
     let w = document.querySelector('#opt-m')
     let z = document.querySelector('#opt-l')
-
+    //如果在地圖模式就隱藏地圖顯示列表
     if (x.style.display === 'block') {
         x.style.display = 'none'
         y.style.display = 'block'
         w.style.display = 'none'
         z.style.display = 'block'
-
+        //如果列表模式就隱藏列表顯示地圖
     } else {
         x.style.display = 'block'
         y.style.display = 'none'
