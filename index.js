@@ -1,13 +1,37 @@
-let shopList = []
+let shopList = [];
+let myLat, myLng;
 
 //onload function
 function initMap() {
     // console.log('aaaa')
-    setMap();
+    // setMap();
+    locateUsers();
     document.querySelector('.d-mode').onclick = () => { switchShow() }
     // console.log(myLat, myLng)
 
 }
+
+function locateUsers() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                //使用者緯度
+                lat = position.coords.latitude;
+                myLat = lat;
+                //使用者經度
+                lng = position.coords.longitude;
+                myLng = lng;
+                console.log('定位成功/n你在' + myLat + "," + myLng)
+                resolve();
+            },
+            (error) => {
+                console.log('抱歉無法取得您的位置')
+                reject();
+            }
+        )
+    })
+}
+
 
 const setMap = () => {
     let lat, lng
@@ -28,6 +52,8 @@ const setMap = () => {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
         });
+
+
         //依站點資訊新增map上的標記
         let markerList = []
 
@@ -59,7 +85,6 @@ const setMap = () => {
             });
         }
 
-        console.log(shopList)
         newInfoCard(lat, lng)
     });
 }
