@@ -15,7 +15,7 @@ async function initMap() {
     newSlickCard();//生成輪播元件
     setCarousel();//實作輪播效果
     document.querySelector('.d-mode').onclick = () => { switchShow() }//切換顯示模式
-    // listenSelect();
+    listenSelect();
 }
 
 
@@ -25,12 +25,13 @@ async function listenSelect() {
         chosen = e.target.value;
         console.log(chosen)
         initMap();
-        // postTarget(myLat, myLng, chosen);//搜尋所在位置的台灣彩券行
+        // await postTarget(myLat, myLng, chosen);//搜尋所在位置的台灣彩券行
         // setMarkerOnMap();//標記站點位置
         // newInfoCard();//動態產生站點列表
         // newSlickCard();//生成輪播元件
-        $('.slick').slick('unslick');
+        // $('.slick').slick('unslick');//解除slick
         // setCarousel();//實作輪播效果
+        // listenSelect();
     }
 }
 function locateUsers() {
@@ -71,8 +72,8 @@ function setCarousel(params) {
         infinite: false,
     })
     slicker.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
-        console.log(event);
-        console.log(slick);
+        // console.log(event);
+        // console.log(slick);
         console.log(currentSlide);
         console.log(nextSlide);
         markerList[nextSlide].setIcon('./icons/圖片4_modified.png');
@@ -80,11 +81,11 @@ function setCarousel(params) {
         map.setCenter(markerList[nextSlide].getPosition());
         map.setZoom(18);
     });
-
 }
 
 function setMarkerOnMap() {
     let index = 0;
+    markerList = [];
     console.log('標記站點位置')
     for (const shop of shopList) {
         console.log('新標記')
@@ -114,7 +115,6 @@ const bindMarkerToSlicker = () => {
             }
             //click to change icon
             if (marker.icon === './icons/圖片3_modified.png') {
-                console.log('change icon')
                 marker.setIcon('./icons/圖片4_modified.png')
             }
             $('.slick').slick('slickGoTo', marker.index);
@@ -140,12 +140,11 @@ const switchShow = () => {
         w.style.display = 'block'
         z.style.display = 'none'
     }
-
 }
 //send request to 台彩 api
 async function postTarget(lat, lng, dis) {
-    shopList = []
     const url = `https://smuat.megatime.com.tw/taiwanlottery/api/Home/Station`
+    shopList = [];
     let request = {
         method: "POST",
         headers: {
@@ -168,7 +167,6 @@ async function postTarget(lat, lng, dis) {
             for (const spot of spots) {
                 shopList.push(spot);
             }
-
         })
 }
 let newInfoCard = (lat, lng) => {
