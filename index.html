@@ -3,6 +3,8 @@
 
   <head>
     <title>Lottery Station</title>
+    <!-- vue cdn -->
+    <script src="https://unpkg.com/vue@next"></script>
     <!--mycss -->
     <link rel="stylesheet" href="./style.css" />
     <!-- slick_css -->
@@ -17,37 +19,38 @@
   </head>
 
   <body>
-    <h2 id="pageTitle">附近投注站</h2>
-    <div class="d-mode">
-      <img src="./icons/圖片2.png" id="opt-m" class="state" style="display:block" onclick="switchShow">
-      <img src="./icons/圖片1.png" id="opt-l" class="state" style="display:none" onclick="switchShow">
-    </div>
-    <div class="content" style="display: block;">
-      <div id="map"></div>
-      <!-- here is carousel -->
-      <div class="container">
-        <div class="slick">
-
-        </div>
+    <div id="myMap">
+      <h2 id="pageTitle">附近投注站</h2>
+      <div class="d-mode">
+        <img src="./icons/圖片2.png" id="opt-m" class="state" style="display:block" onclick="switchShow">
+        <img src="./icons/圖片1.png" id="opt-l" class="state" style="display:none" onclick="switchShow">
       </div>
-      <!-- here is option selection for distance -->
-      <ul class="dist_select">
-        <li class="dist_opt" id="1"><button class="option" value="1">1公里</button></li>
-        <li class="dist_opt" id="1"><button class="option" value="2">2公里</button></li>
-        <li class="dist_opt" id="1"><button class="option" value="5">5公里</button></li>
+      <div class="content" style="display: block;">
+        <div id="map"></div>
+        <!-- here is carousel -->
+        <div class="container">
+          <div class="slick">
+
+          </div>
+        </div>
+        <!-- here is option selection for distance -->
+        <ul class="dist_select">
+          <li class="dist_opt" id="1"><button class="option" value="1">1公里</button></li>
+          <li class="dist_opt" id="1"><button class="option" value="2">2公里</button></li>
+          <li class="dist_opt" id="1"><button class="option" value="5">5公里</button></li>
+        </ul>
+      </div>
+      <!-- here is list for station -->
+      <ul>
+        <li>
+          <div class="l-container" style="display: none;">
+          </div>
+        </li>
       </ul>
     </div>
-    <!-- here is list for station -->
-    <ul>
-      <li>
-        <div class="l-container" style="display: none;">
-        </div>
-      </li>
-    </ul>
 
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsLqHl6vxbCi8UQq6Z6VD9xZjWf1RRmHs&callback=initMap"
-      async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsLqHl6vxbCi8UQq6Z6VD9xZjWf1RRmHs" async></script>
   </body>
 
 </html>
