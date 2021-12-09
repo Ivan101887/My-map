@@ -20,16 +20,16 @@ async function initMap() {
 
 
 async function listenSelect() {
-    document.querySelector('.dist_select').onclick = (e) => {
+    document.querySelector('.dist_select').onclick = async (e) => {
         console.log("Success on listening")
         chosen = e.target.value;
         console.log(chosen)
-        initMap();
-        // await postTarget(myLat, myLng, chosen);//搜尋所在位置的台灣彩券行
+        $('.slick').slick('unslick');//解除slick
+        // initMap();
+        await postTarget(myLat, myLng, parseInt(chosen));//搜尋所在位置的台灣彩券行
         // setMarkerOnMap();//標記站點位置
         // newInfoCard();//動態產生站點列表
         // newSlickCard();//生成輪播元件
-        // $('.slick').slick('unslick');//解除slick
         // setCarousel();//實作輪播效果
         // listenSelect();
     }
@@ -167,6 +167,9 @@ async function postTarget(lat, lng, dis) {
             for (const spot of spots) {
                 shopList.push(spot);
             }
+        })
+        .catch((error) => {
+            console.log(`Error : ${error}`)
         })
 }
 let newInfoCard = (lat, lng) => {
