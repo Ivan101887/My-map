@@ -38,13 +38,13 @@ const app = Vue.createApp({
                 console.log("Success on listening")
                 this.chosen = parseInt(e.target.value);
                 console.log(typeof chosen)
-                this.slicker.slick('unslick');//解除slick
                 // initMap();
                 await this.postTarget(this.myLat, this.myLng, this.chosen);//搜尋所在位置的台灣彩券行
                 this.initialMyMap(this.myLat, this.myLng);//建立新地圖
                 this.newSlickCard();//生成輪播元件
-                this.setCarousel();//實作輪播效果
                 this.setMarkerOnMap();//標記站點位置
+                this.slicker.slick('unslick');//解除slick
+                this.setCarousel();//實作輪播效果
                 this.newInfoCard();//動態產生站點列表
                 this.listenSelect();
             }
@@ -181,12 +181,16 @@ const app = Vue.createApp({
             await fetch(url, request)
                 .then(response => response.json())
                 .then(json => {
+                    let shopCount = 0
                     console.log("run postTarget")
                     console.log(json.content.list)
                     let spots = json.content.list
                     for (const spot of spots) {
+                        if (shopCount > 250) break;
                         this.shopList.push(spot);
+                        shopCount++
                     }
+                    console.log(shopCount);
                 })
                 .catch((error) => {
                     console.log(`Error : ${error}`)
