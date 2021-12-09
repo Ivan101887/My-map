@@ -22,16 +22,17 @@ async function initMap() {
 async function listenSelect() {
     document.querySelector('.dist_select').onclick = async (e) => {
         console.log("Success on listening")
-        chosen = e.target.value;
-        console.log(chosen)
-        $('.slick').slick('unslick');//解除slick
+        chosen = parseInt(e.target.value);
+        console.log(typeof chosen)
+        slicker.slick('unslick');//解除slick
         // initMap();
-        await postTarget(myLat, myLng, parseInt(chosen));//搜尋所在位置的台灣彩券行
-        // setMarkerOnMap();//標記站點位置
-        // newInfoCard();//動態產生站點列表
-        // newSlickCard();//生成輪播元件
-        // setCarousel();//實作輪播效果
-        // listenSelect();
+        await postTarget(myLat, myLng, chosen);//搜尋所在位置的台灣彩券行
+        initialMyMap(myLat, myLng);//建立新地圖
+        newSlickCard();//生成輪播元件
+        setCarousel();//實作輪播效果
+        setMarkerOnMap();//標記站點位置
+        newInfoCard();//動態產生站點列表
+        listenSelect();
     }
 }
 function locateUsers() {
